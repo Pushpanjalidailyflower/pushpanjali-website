@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pushpanjali | Fresh Puja Flowers</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/"><span class="brand-mark">✿</span><span><b>Pushpanjali</b><small>Fresh Flowers for Everyday Puja</small></span></a>
+  <a class="admin-link" href="/admin.html">Owner</a>
+</header>
+<main>
+  <section class="hero">
+    <div><p class="eyebrow">FRESH • DEVOTIONAL • DELIVERED</p><h1>Bring freshness<br>to your daily puja.</h1>
+    <p class="hero-copy">Choose your puja flowers and essentials. Place your order directly through WhatsApp.</p>
+    <a class="button button-light" href="#products">Shop products</a></div>
+    <div class="hero-flower" aria-hidden="true">✿</div>
+  </section>
+  <section class="policy-grid" aria-label="Delivery policy">
+    <article><span>🚚</span><b>Free delivery within 5 km</b><small>Above 5 km: ₹30 extra</small></article>
+    <article><span>🧺</span><b>Minimum order ₹79</b><small>Orders below ₹79 cannot be placed</small></article>
+    <article><span>🕙</span><b>Order receiving time</b><small>10:00 PM – 6:00 PM next day</small></article>
+    <article><span>🌙</span><b>Regular delivery</b><small>8:00 PM – 11:00 PM</small></article>
+  </section>
+  <section class="section-head" id="products"><div><p class="eyebrow">OUR COLLECTION</p><h2>Fresh puja essentials</h2></div><span id="product-count" class="muted"></span></section>
+  <section id="product-grid" class="product-grid"><p class="loading">Loading products…</p></section>
+  <section class="order-layout" id="order">
+    <div class="cart-panel">
+      <p class="eyebrow">YOUR SELECTION</p><h2>Your cart</h2>
+      <div id="cart-items"><p class="muted">Your cart is empty.</p></div>
+      <div class="totals">
+        <div><span>Items total</span><b id="items-total">₹0</b></div>
+        <div><span>Delivery charge</span><b id="delivery-fee">₹0</b></div>
+        <div><span>Emergency charge</span><b id="emergency-fee">₹0</b></div>
+        <div class="grand-total"><span>Grand total</span><b id="grand-total">₹0</b></div>
+      </div>
+    </div>
+    <form id="checkout-form" class="checkout-panel">
+      <p class="eyebrow">CHECKOUT</p><h2>Delivery details</h2>
+      <label>Your name<input name="name" required maxlength="80" placeholder="Enter your name"></label>
+      <label>Phone number<input name="phone" required inputmode="tel" pattern="[0-9+ ()-]{10,18}" placeholder="Your phone number"></label>
+      <label>Full delivery address<textarea name="address" required rows="3" placeholder="House, road, area, landmark"></textarea></label>
+      <label>Delivery distance<select name="distance"><option value="0">Within 5 km – Free</option><option value="30">Above 5 km – ₹30 extra</option></select></label>
+      <label class="check-row"><input type="checkbox" name="emergency" id="emergency"> I need emergency delivery within 1 hour (+₹50)</label>
+      <label id="emergency-time-wrap" class="hidden">Preferred delivery time<input name="emergencyTime" placeholder="e.g. 2:00 PM"></label>
+      <p class="notice">Regular delivery is between 8:00 PM and 11:00 PM. Emergency delivery within 1 hour is subject to availability and costs an extra ₹50.</p>
+      <p id="form-error" class="error" role="alert"></p>
+      <button class="button button-main full" type="submit">Place order on WhatsApp</button>
+      <small class="muted">WhatsApp will open with your order details. Please press Send in WhatsApp to confirm your order.</small>
+    </form>
+  </section>
+</main>
+<footer><b>Pushpanjali</b><span>Fresh flowers for everyday puja</span></footer>
+<script src="/app.js"></script>
+</body></html>
