@@ -1,9 +1,16 @@
 const WA_NUMBER="919875557909";
-let products=[], cart={};
+let products=[], categories=[], cart={};
 const money=n=>"₹"+Number(n||0).toFixed(0);
 const $=s=>document.querySelector(s);
-async function loadProducts(){try{const r=await fetch("/api/products");const d=await r.json();products=d.products||[];renderProducts()}catch(e){$("#product-grid").innerHTML='<p>Products could not be loaded. Please refresh.</p>'}}
-function renderProducts(){$("#product-count").textContent=products.length+" items";$("#product-grid").innerHTML=products.map(p=>`<article class="product-card"><div class="product-image">${p.image?`<img src="${p.image}" alt="${esc(p.name)}">`:"✿"}</div><div class="product-info"><h3>${esc(p.name)}</h3><p>${esc(p.description||"Fresh puja essential.")}</p><div class="product-bottom"><span class="price">${money(p.price)}</span><button class="add-button" onclick="addToCart('${p.id}')">Add +</button></div></div></article>`).join("")}
+async function loadProducts(){try{const r=await fetch("/api/products");const d=await r.json();products=d.products||[];categories=d.categories||[];renderProducts()}catch(e){$("#product-grid").innerHTML='<p>Products could not be loaded. Please refresh.</p>'}}
+function renderProducts(){
+  const host=$("#category-sections");
+  const groups=categories.map(c=>({category:c,items:products.filter(p=>p.categoryId===c.id)})).filter(g=>g.items.length);
+  const uncategorized=products.filter(p=>!categories.some(c=>c.id===p.categoryId));
+  if(uncategorized.length)groups.push({category:{id:"other",name:"Other items"},items:uncategorized});
+  $("#product-count").textContent=products.length+" items";
+  host.innerHTML=groups.length?groups.map(g=>`<section class="category-section"><div class="section-head category-head"><div><p class="eyebrow">OUR COLLECTION</p><h2>${esc(g.category.name)}</h2></div><span class="muted">${g.items.length} items</span></div><div class="product-grid">${g.items.map(p=>`<article class="product-card"><div class="product-image">${p.image?`<img src="${p.image}" alt="${esc(p.name)}">`:"✿"}</div><div class="product-info"><h3>${esc(p.name)}</h3><p>${esc(p.description||"Fresh puja essential.")}</p><div class="product-bottom"><span class="price">${money(p.price)}</span><button class="add-button" onclick="addToCart('${p.id}')">Add +</button></div></div></article>`).join("")}</div></section>`).join(""):'<p class="loading">No products are available right now.</p>';
+}
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 window.addToCart=id=>{cart[id]=(cart[id]||0)+1;renderCart();$("#order").scrollIntoView({behavior:"smooth",block:"start"})};
 window.changeQty=(id,n)=>{cart[id]=(cart[id]||0)+n;if(cart[id]<=0)delete cart[id];renderCart()};
