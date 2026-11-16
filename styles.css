@@ -5,3 +5,27 @@
 
 /* Pushpanjali branding, contact details and category management */
 .brand-logo{display:block;width:220px;max-height:68px;object-fit:contain}.site-footer{display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:25px;align-items:center}.footer-brand{display:flex;flex-direction:column;gap:8px}.footer-brand img{width:190px;max-height:100px;object-fit:contain;background:#fff;border-radius:10px;padding:5px}.footer-brand span,.footer-address span{color:#c8d9cd;font-size:12px;line-height:1.7}.footer-contact,.footer-address{display:flex;flex-direction:column;gap:7px;font-size:13px}.footer-contact a{color:#fff;text-decoration:none}.category-section{margin:0 auto 42px;width:min(1120px,92%)}.category-head{width:100%;margin:0 0 16px}.category-head h2{font-family:'Playfair Display',serif;font-size:27px;margin:0}.category-section .product-grid{width:100%}.category-manager{border:1px solid var(--line);border-radius:17px;padding:20px;margin:15px 0 28px;background:var(--pale)}.category-row{display:flex;gap:10px;align-items:center;margin:9px 0}.category-row input{flex:1;min-width:0;padding:11px;border:1px solid var(--line);border-radius:9px;font:13px 'DM Sans'}.danger-button{border:1px solid #e5b9b5;color:#a12a20;background:#fff;border-radius:9px;padding:10px 13px;cursor:pointer;font-weight:700}.editor-item select{display:block;width:100%;margin-top:7px;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fff;font:13px 'DM Sans'}@media(max-width:760px){.brand-logo{width:175px;max-height:60px}.site-footer{grid-template-columns:1fr}.footer-brand img{width:170px}.category-section{margin-bottom:32px}}
+
+
+/* Grand opening offer banner */
+.opening-offer{position:relative;isolation:isolate;overflow:hidden;width:min(1120px,92%);margin:22px auto 26px;padding:24px 20px;text-align:center;border:2px solid #f3c85c;border-radius:22px;background:radial-gradient(ellipse at 50% 0%,#8f1d25 0%,#5c101b 48%,#310d19 100%);color:#fff8df;box-shadow:0 12px 32px #7d1b292b,inset 0 0 25px #ffdb7130;animation:offer-border-glow 2.2s ease-in-out infinite}
+.opening-offer:before,.opening-offer:after{content:"";position:absolute;z-index:-1;width:210px;height:210px;border:1px solid #ffdf8a66;border-radius:50%;top:50%;transform:translateY(-50%);box-shadow:0 0 0 12px #ffdf8a0d,0 0 0 26px #ffdf8a0a}
+.opening-offer:before{left:-125px}.opening-offer:after{right:-125px}
+.offer-content{position:relative;z-index:1}
+.offer-kicker{margin:0 0 8px;color:#ffe7a0;font-size:clamp(10px,1.5vw,13px);font-weight:800;letter-spacing:3px;text-shadow:0 0 12px #ffd76a99}
+.opening-offer h2{margin:0;font-size:clamp(19px,3.3vw,34px);font-weight:800;letter-spacing:1px;line-height:1.25;color:#fff}
+.opening-offer h2 span{display:block;margin-top:4px;color:#ffe28a}
+.opening-offer h2 strong{display:inline-block;color:#fff3b5;text-shadow:0 0 7px #ffcc48,0 0 18px #ffb52e,0 0 30px #ff7b22;animation:offer-flash 1.15s ease-in-out infinite}
+.offer-dates{margin:12px 0 10px;color:#fff4d2;font-size:clamp(13px,2vw,18px);font-weight:800;letter-spacing:2px}
+.offer-condition{display:inline-block;padding:9px 19px;border:1px solid #ffe49a;border-radius:999px;background:linear-gradient(90deg,#f6c85c,#fff0b2,#e8b443);color:#53121b;font-size:clamp(11px,1.7vw,15px);font-weight:900;letter-spacing:1px;box-shadow:0 0 18px #ffd66c80;animation:offer-condition-pulse 1.8s ease-in-out infinite}
+.offer-note{margin:10px 0 0;color:#fce9c4;font-size:12px}
+.offer-spark{position:absolute;color:#ffe89a;font-size:31px;text-shadow:0 0 12px #ffd15a;animation:offer-sparkle 1.8s ease-in-out infinite}
+.offer-spark-one{top:17px;left:7%}.offer-spark-two{right:7%;bottom:14px;animation-delay:.8s}
+.discount-row{color:#16804b;font-weight:700}
+.discount-row[hidden]{display:none}
+@keyframes offer-flash{0%,100%{opacity:1;transform:scale(1);filter:brightness(1)}50%{opacity:.62;transform:scale(1.055);filter:brightness(1.5)}}
+@keyframes offer-condition-pulse{0%,100%{transform:scale(1);box-shadow:0 0 10px #ffd66c55}50%{transform:scale(1.035);box-shadow:0 0 23px #ffd66ccc}}
+@keyframes offer-border-glow{0%,100%{box-shadow:0 12px 32px #7d1b292b,inset 0 0 20px #ffdb7120}50%{box-shadow:0 12px 38px #a52a3b55,inset 0 0 32px #ffdb7144}}
+@keyframes offer-sparkle{0%,100%{opacity:.35;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(25deg)}}
+@media(prefers-reduced-motion:reduce){.opening-offer,.opening-offer *{animation:none!important}}
+@media(max-width:600px){.opening-offer{margin:14px auto 19px;padding:21px 12px;border-radius:17px}.offer-kicker{letter-spacing:1.8px}.offer-dates{letter-spacing:1px}.offer-note{font-size:10px}.offer-spark-one{left:4%}.offer-spark-two{right:4%}}
