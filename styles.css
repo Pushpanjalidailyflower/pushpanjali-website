@@ -29,3 +29,17 @@
 @keyframes offer-sparkle{0%,100%{opacity:.35;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(25deg)}}
 @media(prefers-reduced-motion:reduce){.opening-offer,.opening-offer *{animation:none!important}}
 @media(max-width:600px){.opening-offer{margin:14px auto 19px;padding:21px 12px;border-radius:17px}.offer-kicker{letter-spacing:1.8px}.offer-dates{letter-spacing:1px}.offer-note{font-size:10px}.offer-spark-one{left:4%}.offer-spark-two{right:4%}}
+
+/* Store open/closed controls */
+.store-manager{border:1px solid var(--line);border-radius:17px;padding:20px;margin:15px 0 28px;background:#f8fbf8}
+.store-status-pill{display:inline-flex;align-items:center;border-radius:999px;padding:8px 13px;font-size:11px;font-weight:800;letter-spacing:.5px}
+.store-status-pill.is-open{background:#e4f4e9;color:#176b3b}
+.store-status-pill.is-closed{background:#fde9e7;color:#a12a20}
+.store-toggle{display:flex!important;align-items:center;gap:10px;margin:18px 0!important;font-size:14px!important}
+.store-toggle input{width:20px;height:20px;accent-color:var(--green)}
+.store-manager label:not(.store-toggle){display:block;font-size:12px;font-weight:700;margin:12px 0}
+.store-manager textarea{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid var(--line);border-radius:10px;font:13px 'DM Sans';resize:vertical}
+.store-closed-banner{width:min(1120px,92%);margin:22px auto;padding:22px 24px;border:1px solid #efc2bd;border-radius:16px;background:#fff2f0;color:#8f241c;text-align:center}
+.store-closed-banner strong{font-size:20px}
+.store-closed-banner p{margin:7px 0 0;font-size:14px;line-height:1.5}
+.add-button:disabled,.button:disabled{opacity:.5;cursor:not-allowed;background:#89958d;color:#fff;border-color:#89958d}

@@ -1,9 +1,9 @@
-const $=s=>document.querySelector(s);let items=[],categories=[];
+const $=s=>document.querySelector(s);let items=[],categories=[],storeStatus={isOpen:true,message:"We are temporarily closed. Please visit us again soon."};
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const makeId=prefix=>prefix+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7);
 async function login(){const password=$("#admin-password").value;const r=await fetch("/api/admin?action=login",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({password})});const d=await r.json();if(!r.ok){$("#login-error").textContent=d.error||"Could not sign in.";return}$("#login-box").classList.add("hidden");$("#editor").classList.remove("hidden");await load()}
 $("#login-button").addEventListener("click",login);$("#admin-password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
-async function load(){const r=await fetch("/api/admin");const d=await r.json();if(!r.ok){$("#save-status").textContent=d.error;return}items=d.products||[];categories=d.categories||[];render()}
+async function load(){const r=await fetch("/api/admin");const d=await r.json();if(!r.ok){$("#save-status").textContent=d.error;return}items=d.products||[];categories=d.categories||[];storeStatus=d.storeStatus||storeStatus;$("#store-open").checked=storeStatus.isOpen;$("#closed-message").value=storeStatus.message;updateStoreLabel();render()}
 function renderCategories(){
  $("#category-list").innerHTML=categories.length?categories.map((c,i)=>`<div class="category-row"><input aria-label="Category name" data-category="${i}" value="${esc(c.name)}"><button type="button" class="danger-button" data-delete-category="${i}">Delete</button></div>`).join(""):'<p class="muted">No categories yet. Add your first category.</p>';
  $("#category-list").querySelectorAll("[data-category]").forEach(el=>el.addEventListener("input",()=>{categories[+el.dataset.category].name=el.value}));
@@ -15,6 +15,18 @@ function renderProducts(){
  $("#editor-list").querySelectorAll("[data-photo]").forEach(el=>el.addEventListener("change",async()=>{const file=el.files[0];if(!file)return;const i=+el.dataset.photo;try{items[i].image=await compress(file);$("#preview-"+i).src=items[i].image;$("#save-status").textContent="Photo ready. Click Save changes to publish it."}catch(e){$("#save-status").textContent="Could not read this photo."}}));
 }
 function render(){renderCategories();renderProducts()}
+function updateStoreLabel(){const open=$("#store-open").checked;const pill=$("#store-status-label");pill.textContent=open?"OPEN – ACCEPTING ORDERS":"CLOSED – ORDERS OFF";pill.className="store-status-pill "+(open?"is-open":"is-closed")}
+$("#store-open").addEventListener("change",updateStoreLabel);
+$("#save-store").addEventListener("click",async()=>{
+ const next={isOpen:$("#store-open").checked,message:$("#closed-message").value.trim()||"We are temporarily closed. Please visit us again soon."};
+ $("#store-save-status").textContent="Saving…";
+ try{
+  const r=await fetch("/api/admin",{method:"PUT",headers:{"content-type":"application/json"},body:JSON.stringify({products:items,categories,storeStatus:next})});
+  const d=await r.json();if(!r.ok)throw new Error(d.error||"Could not save store status.");
+  storeStatus=d.storeStatus||next;$("#store-open").checked=storeStatus.isOpen;$("#closed-message").value=storeStatus.message;updateStoreLabel();
+  $("#store-save-status").textContent="Store status saved. Customer website is now "+(storeStatus.isOpen?"OPEN.":"CLOSED.");
+ }catch(e){$("#store-save-status").textContent=e.message||"Could not save store status."}
+});
 function compress(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,1000/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext("2d").drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL("image/jpeg",.78))};img.src=reader.result};reader.readAsDataURL(file)})}
 window.removeItem=i=>{if(confirm("Delete this product?")){items.splice(i,1);renderProducts()}};
 $("#add-category").addEventListener("click",()=>{const name=prompt("Enter the new category name:");if(name&&name.trim()){categories.push({id:makeId("category"),name:name.trim()});renderCategories();renderProducts()}});

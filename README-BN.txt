@@ -6,10 +6,12 @@ PUSHPANJALI WEBSITE — CLOUDFLARE PAGES VERSION
 - index.html : Customer Website
 - admin.html : Password-protected Product Editor (URL-এর শেষে /admin)
 - functions/api/products.js : Customer product API
+- functions/api/store-status.js : Public store open/closed status API
 - functions/api/admin.js : Admin login/save API
 - app.js, admin.js, styles.css : Website scripts/design
 - assets/pushpanjali-logo.png : Brand logo
 - Admin Panel-এ Category তৈরি/সম্পাদনা এবং Product-কে Category-তে রাখার ব্যবস্থা
+- Admin Panel থেকে Store ON/OFF করে Customer order সাময়িক বন্ধ/চালু করার ব্যবস্থা
 
 গুরুত্বপূর্ণ: শুধু Dashboard-এর Drag and drop upload করলে Functions চলবে না। GitHub repository connect করে Pages deploy করতে হবে।
 

@@ -22,3 +22,9 @@ export async function products(env){const saved=await env.PUSHPANJALI_KV.get("pr
 export async function categories(env){const saved=await env.PUSHPANJALI_KV.get("categories",{type:"json"});return Array.isArray(saved)?saved:initialCategories;}
 export async function sign(value,secret){const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(secret),{name:"HMAC",hash:"SHA-256"},false,["sign"]);const sig=await crypto.subtle.sign("HMAC",key,new TextEncoder().encode(value));return [...new Uint8Array(sig)].map(b=>b.toString(16).padStart(2,"0")).join("");}
 export async function validSession(request,env){if(!env.SESSION_SECRET)return false;const cookie=request.headers.get("cookie")||"";const pair=cookie.split(";").map(x=>x.trim()).find(x=>x.startsWith("pushpanjali_admin="));if(!pair)return false;let token;try{token=decodeURIComponent(pair.split("=").slice(1).join("="));}catch{return false;}const [expires,signature]=token.split(".");if(!expires||!signature||Number(expires)<Date.now())return false;const expected=await sign(expires,env.SESSION_SECRET);return signature===expected;}
+
+export async function storeStatus(env){
+  const saved=await env.PUSHPANJALI_KV.get("storeStatus",{type:"json"});
+  if(!saved||typeof saved!=="object")return {isOpen:true,message:"We are temporarily closed. Please visit us again soon."};
+  return {isOpen:saved.isOpen!==false,message:String(saved.message||"We are temporarily closed. Please visit us again soon.").slice(0,240)};
+}
